@@ -1,4 +1,5 @@
-const app = require("express")();
+const express = require("express");
+const app = express();
 const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config({path:path.join(__dirname,"config",".env")});
@@ -20,7 +21,8 @@ ConnectDatabase();
 
 
 
-
+//addind a middle ware for json convert
+app.use(express.json());
 
 //use the routers in middle ware
 app.use("/api/jr/",products);
