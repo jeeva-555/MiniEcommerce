@@ -2,8 +2,9 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const path = require("path");
+const cors = require("cors")
 dotenv.config({path:path.join(__dirname,"config",".env")});
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const { ConnectDatabase } = require("./config/database");
 
 
@@ -23,6 +24,7 @@ ConnectDatabase();
 
 //addind a middle ware for json convert
 app.use(express.json());
+app.use(cors());
 
 //use the routers in middle ware
 app.use("/api/jr/",products);
