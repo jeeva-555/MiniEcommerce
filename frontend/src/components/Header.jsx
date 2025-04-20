@@ -1,14 +1,27 @@
 
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function Header() {
+  const [searchkey,setsearchkey] = useState("");
+  const navigate = useNavigate();
+
+  function storesearchkey(e){
+    setsearchkey(e.target.value);
+  }
+
+  function handlesearch(){
+      navigate("search?keyword="+searchkey);
+  }
   return (
     <div>
             <nav className="navbar row">
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <img width="80px" style={{borderRadius:"50px"}} src="/images/jeevalogo.png" />
+          <img width="80px" style={{borderRadius:"50px"}} src="/images/jeevalogo.png" 
+          onClick={()=>{navigate("/")}}/>
         </div>
       </div>
 
@@ -19,9 +32,11 @@ function Header() {
             id="search_field"
             className="form-control"
             placeholder="Enter Product Name ..."
+            onChange={storesearchkey}
+            value={searchkey}
           />
           <div className="input-group-append">
-            <button id="search_btn" className="btn">
+            <button id="search_btn" className="btn" onClick={handlesearch}>
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
           </div>

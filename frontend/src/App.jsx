@@ -3,15 +3,21 @@ import './App.css'
 import Home from './pages/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import {BrowserRouter,Route,Routes} from "react-router-dom"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Header/>
-      <Home/>
-    <Footer/>
+    <BrowserRouter>
+     <Header/>
+    <Routes>
+       <Route path='/' element={<Home/>}/>
+       <Route path='/search' element={<Home/>}/>
+    </Routes>   
+      <Footer/>
+    </BrowserRouter>
     </>
   )
 }
