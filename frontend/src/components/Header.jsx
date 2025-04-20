@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 
-function Header() {
+function Header({cartitems}) {
   const [searchkey,setsearchkey] = useState("");
   const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ function Header() {
             className="form-control"
             placeholder="Enter Product Name ..."
             onChange={storesearchkey}
+            onBlur={handlesearch}
             value={searchkey}
           />
           <div className="input-group-append">
@@ -45,7 +46,7 @@ function Header() {
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
         <span id="cart" className="ml-3">Cart</span>
-        <span className="ml-1" id="cart_count">2</span>
+        <span className="ml-1" id="cart_count">{cartitems.length}</span>
       </div>
     </nav>
 
