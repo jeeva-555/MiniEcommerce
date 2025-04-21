@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 function Details({cartitems,setcartitems,toast}) {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
-  const[qty,setqty]= useState(1)
+  const[qty,setqty]= useState(1);
+  
 
   useEffect(() => {
     fetch(`http://localhost:8008/api/jr/products/${id}`)
       .then(res => res.json())
       .then(data => {
         setProduct(data);
-        console.log("Fetched product:", data);
       })
       .catch(err => console.error("Error fetching product:", err));
   }, [id]);
@@ -92,11 +92,11 @@ function Details({cartitems,setcartitems,toast}) {
 
             <span className="btn btn-primary plus" onClick={increment}>+</span>
           </div>
-          <button type="button" id="cart_btn" onClick={addtocart} className="btn btn-primary d-inline ml-4">Add to Cart</button>
+          <button type="button" id="cart_btn" disabled={product.stock==0} onClick={addtocart} className="btn btn-primary d-inline ml-4">Add to Cart</button>
 
           <hr />
 
-          <p>Status: <span id="stock_status">{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
+          <p>Status: <span id="stock_status" style={{color:`${product.stock>0?"green":"red"}`}}>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
 
           <hr />
 

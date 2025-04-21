@@ -8,7 +8,7 @@ function ProductCard( {product}) {
     const innerwidth = `${product.ratings/5*100}%`
   return (
     
-         <div className="col-sm-12 col-md-6 col-lg-3 my-3" key={product.id}>
+         <div className="col-sm-12 col-md-6 col-lg-3 my-3" key={product._id}>
           <div className="card p-3 rounded">
             <img
               className="card-img-top mx-auto"

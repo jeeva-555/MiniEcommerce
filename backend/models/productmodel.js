@@ -8,7 +8,7 @@ const productschema = new mongoose.Schema({
     images : [{image:String}],
     category : String,
     seller : String,
-    stock : String,
+    stock : Number,
     createdAt : Date,
 })
 

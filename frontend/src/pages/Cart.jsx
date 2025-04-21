@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import{useState,useEffect} from "react"
 
 function Cart({cartitems,setcartitems,toast}) {
@@ -6,7 +6,7 @@ function Cart({cartitems,setcartitems,toast}) {
 
 
     
-
+    const[order,setorder]=useState(false);
     const [storage,setstorage] = useState([])
 
     useEffect(()=>{
@@ -47,13 +47,36 @@ function Cart({cartitems,setcartitems,toast}) {
         setcartitems(prev=>prev.filter((item)=>
              item.product._id!==id
         ));
+      };
+
+      function checkout(){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cartitems)
+        };
+        fetch("http://localhost:8008/api/jr/order",requestOptions)
+        .then(res=>res.json())
+        .then(()=>{ toast.success('order placed successfully', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            
+            });});
+
+            setcartitems([]);
       }
 
 
       const totalunits = cartitems.reduce((acc,item)=>acc+item.qty,0);
-      const totalprice = cartitems.reduce((acc,item)=>acc+parseInt(item.product.price),0)
-  return (
-    <div className="container container-fluid">
+      const totalprice = cartitems.reduce((acc,item)=>acc+item.qty*parseInt(item.product.price),0)
+  
+  return(  <Fragment><div className="container container-fluid">
     <h2 className="mt-5">Your Cart: <b>{cartitems.length} items</b></h2>
     
     <div className="row d-flex justify-content-between">
@@ -103,12 +126,13 @@ function Cart({cartitems,setcartitems,toast}) {
                 <p>Est. total: <span className="order-summary-values">{totalprice}</span></p>
 
                 <hr />
-                <button id="checkout_btn" className="btn btn-primary btn-block">Place Order</button>
+                <button id="checkout_btn" onClick={checkout} className="btn btn-primary btn-block">Place Order</button>
             </div>
         </div>
     </div>
 </div>
-  )
-}
+</Fragment>)
+  }
+
 
 export default Cart
