@@ -24,7 +24,7 @@ function Details({cartitems,setcartitems,toast}) {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
-        closeOnClick: false,
+        closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
@@ -57,7 +57,7 @@ function Details({cartitems,setcartitems,toast}) {
   }
 
   function decrement(){
-    if(qty>1) setqty(prev =>--prev);
+    if(qty>1)setqty(prev =>--prev);
    
   }
 
